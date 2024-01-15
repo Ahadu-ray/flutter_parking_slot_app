@@ -23,16 +23,13 @@ class HomeController extends GetxController {
   }
 
   var closeParkingAreas = <ParkingAreaModel>[].obs;
-  var closeTowns = <TownDetailModel>[].obs;
-  var selectedTown = Rxn<TownDetailModel>();
 
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
 
   var currentLocation = Rxn<Position>();
   var markers = <Marker>{}.obs;
-  var circles = <Circle>{}.obs;
-
+  var polygons = <Polygon>{}.obs;
   StreamSubscription<Position>? liveLocationStream;
 
   Future<Position?> getCurrentLocation() async {
@@ -42,7 +39,7 @@ class HomeController extends GetxController {
         CameraUpdate.newLatLngZoom(
             LatLng(currentLocation.value!.latitude,
                 currentLocation.value!.longitude),
-            15)));
+            18)));
     streamLocation();
     return currentLocation.value;
   }
@@ -66,30 +63,31 @@ class HomeController extends GetxController {
   }
 
   getClosestTowns() async {
-    closeTowns.value =
-        await homeRepository.getNearbyTowns(currentLocation.value!);
-    circles.clear();
-    var temp = <Circle>{};
-    closeTowns.forEach((element) {
-      temp.add(Circle(
-        circleId: CircleId(element.id),
-        center: LatLng(element.latitude!, element.longitude!),
-        radius: element.radius!,
-        fillColor: element.safety == AreaSafety.danger
+    closeParkingAreas.value =
+        await homeRepository.getParkingAreas(currentLocation.value!);
+    polygons.clear();
+    var temp = <Polygon>{};
+    for (var element in closeParkingAreas) {
+      temp.add(Polygon(
+        polygonId: PolygonId(element.id),
+        points: element.polygon!,
+        fillColor: (element.availableSlots! / element.totalSlots!) < 0.1
             ? Colors.red.withOpacity(0.5)
-            : element.safety == AreaSafety.warning
+            : (element.availableSlots! / element.totalSlots!) < 0.5 &&
+                    (element.availableSlots! / element.totalSlots!) > 0.1
                 ? Colors.yellow.withOpacity(0.5)
                 : Colors.green.withOpacity(0.5),
         strokeWidth: 1,
+        consumeTapEvents: true,
         strokeColor: Colors.black.withOpacity(0.5),
         onTap: () {
-          Get.snackbar("Parking Area", "You are in parking area",
-              snackPosition: SnackPosition.BOTTOM);
+          mapController.future.then((value) => value
+              .animateCamera(CameraUpdate.newLatLngZoom(element.center!, 19)));
         },
       ));
       log("temp: $temp");
-      circles.addAll(temp);
-    });
+      polygons.addAll(temp);
+    }
   }
 
   onSelectTown() {}

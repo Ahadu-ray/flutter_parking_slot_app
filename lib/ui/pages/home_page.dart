@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_parking_spot_mobile_app/ui/controller/home_controller.dart';
-import 'package:flutter_parking_spot_mobile_app/ui/widgets/base_back_button.dart';
 import 'package:flutter_parking_spot_mobile_app/utils/constants/data_constants.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,13 +18,36 @@ class HomePage extends GetWidget<HomeController> {
             () => GoogleMap(
               initialCameraPosition: kGooglePlex,
               markers: controller.markers.value,
-              circles: controller.circles.value,
+              polygons: controller.polygons.value,
               onMapCreated: (GoogleMapController mapController) {
                 controller.mapController.complete(mapController);
               },
             ),
           ),
-          const Positioned(top: 20, left: 20, child: BaseBackButton()),
+          Positioned(
+              child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 20,
+                      offset: const Offset(-2, -2),
+                      color: Colors.black.withOpacity(0.1)),
+                ],
+                borderRadius: BorderRadius.circular(10)),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: const Row(
+              children: [
+                Column(
+                  children: [
+                    Text("Current Location"),
+                    Text("Lebu"),
+                  ],
+                )
+              ],
+            ),
+          ))
+          // const Positioned(top: 20, left: 20, child: BaseBackButton()),
         ],
       ),
     );

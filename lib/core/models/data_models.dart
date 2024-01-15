@@ -70,6 +70,7 @@ class ParkingAreaModel {
   final String? address;
   final String? description;
   final String? imageUrl;
+  final LatLng? center;
   final List<LatLng>? polygon;
   final int? totalSlots;
   final int? availableSlots;
@@ -86,6 +87,7 @@ class ParkingAreaModel {
     this.address,
     this.description,
     this.imageUrl,
+    this.center,
     this.polygon,
     this.totalSlots,
     this.availableSlots,
@@ -104,6 +106,9 @@ class ParkingAreaModel {
       address: json['address'],
       description: json['description'],
       imageUrl: json['imageUrl'],
+      center: json['center'] != null
+          ? LatLng(json['center']['latitude'], json['center']['longitude'])
+          : null,
       polygon: json['polygon'] != null
           ? (json['polygon'] as List)
               .map((e) => LatLng(e['latitude'], e['longitude']))
@@ -144,6 +149,9 @@ class ParkingAreaModel {
       'address': address,
       'description': description,
       'imageUrl': imageUrl,
+      'center': center != null
+          ? {'latitude': center!.latitude, 'longitude': center!.longitude}
+          : null,
       'polygon': polygon
           ?.map((e) => {'latitude': e.latitude, 'longitude': e.longitude})
           .toList(),
