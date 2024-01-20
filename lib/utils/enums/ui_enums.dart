@@ -1,4 +1,4 @@
-enum ConstantMarkerIds {
+enum MarkerIds {
   currentLocationMarker,
 }
 

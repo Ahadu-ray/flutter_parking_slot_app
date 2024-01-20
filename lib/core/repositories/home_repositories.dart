@@ -1,10 +1,9 @@
 import 'package:flutter_parking_spot_mobile_app/core/models/data_models.dart';
 import 'package:flutter_parking_spot_mobile_app/utils/enums/ui_enums.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeRepository {
-  Future<List<ParkingAreaModel>> getParkingAreas(Position from) async {
+  Future<List<ParkingAreaModel>> getParkingAreas() async {
     return [
       ParkingAreaModel(
         id: "1",

@@ -1,0 +1,32 @@
+[
+    {
+      "featureType": "landscape.man_made",
+      "stylers": [
+        {
+          "color": "#f2f2f2"
+        },
+        {
+          "visibility": "on"
+        }
+      ]
+    },
+    {
+      "featureType": "landscape.natural",
+      "stylers": [
+        {
+          "color": "#f2f2f2"
+        },
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    }
+  ]

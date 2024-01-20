@@ -9,7 +9,7 @@ class InitBindings implements Bindings {
     Get.put(LocationService());
     Get.put(HomeRepository());
     Get.put(HomeController(
-      homeRepository: Get.find(),
+      repository: Get.find(),
       locationService: Get.find(),
     ));
   }
