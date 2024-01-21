@@ -126,9 +126,9 @@ class HomeController extends GetxController {
   }
 
   _setPinIcons() async {
-    double width = 0.2;
+    double width = 50;
     currentLocationIcon = BitmapDescriptor.fromBytes(
-        await getBytesFromAsset(IconImages.car, (width / 50).round()),
+        await getBytesFromAsset(IconImages.car, null),
         size: Size((width / 50), (width / 50)));
     freeParkingSpace = BitmapDescriptor.fromBytes(
         await getBytesFromAsset(IconImages.greenPin, (width).round()));

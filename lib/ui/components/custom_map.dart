@@ -22,7 +22,7 @@ class _CustomMapState extends State<CustomMap>
 
   Set<Marker> currentLocationMarker = {};
 
-  get kCameraZoom => 16.0;
+  get kCameraZoom => 17.0;
 
   @override
   void initState() {

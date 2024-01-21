@@ -80,6 +80,7 @@ class ParkingAreaModel {
   final AreaSafety? safety;
   final ParkingAreaType? parkingAreaType;
   final List<ParkingSlotType>? parkingSlotTypes;
+  final double? rating;
 
   ParkingAreaModel({
     required this.id,
@@ -97,6 +98,7 @@ class ParkingAreaModel {
     this.safety,
     this.parkingAreaType,
     this.parkingSlotTypes,
+    this.rating,
   });
 
   factory ParkingAreaModel.fromJson(Map<String, dynamic> json) {
@@ -139,6 +141,7 @@ class ParkingAreaModel {
                   ))
               .toList()
           : null,
+      rating: json['rating'],
     );
   }
 
@@ -163,6 +166,7 @@ class ParkingAreaModel {
       'safety': safety?.name,
       'parkingAreaType': parkingAreaType?.name,
       'parkingSlotTypes': parkingSlotTypes?.map((e) => e.name).toList(),
+      'rating': rating,
     };
   }
 }
